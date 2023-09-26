@@ -17,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//Alapok
 Route::get('/api/book', [BookController::class, 'index']);
-
 Route::get('/api/book/{id}', [BookController::class, 'show']);
-
 Route::put('/api/book/{id}', [BookController::class, 'update']);
-
 Route::post('/api/book', [BookController::class, 'store']);
-
 Route::delete('/api/book/{id}', [BookController::class, 'destroy']);
 
+//VIEW-OK
+Route::get('/book/new', [BookController::class, 'newView']);
+Route::get('/book/edit/{id}', [BookController::class, 'editView']);
+Route::get('/book/list', [BookController::class, 'listView']);
