@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        //a tesztelés idejére mindenképpen kell, de ha élesben megy, akkor ki kell  szedni
+        '/api/book/*'
     ];
 }

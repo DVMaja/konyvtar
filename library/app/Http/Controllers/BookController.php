@@ -11,17 +11,17 @@ class BookController extends Controller
     //
     public function index()
     {
-        return Book::all();
+        //return Book::all();
     }
     public function show($id)
     {
-        return Book::find($id);
+        //return Book::find($id);
     }
     public function destroy($id)
     {
         Book::find($id)->delete();
         //még nem létetik az útvonal
-        return redirect('/book/list');
+        //return redirect('/book/list');
     }
     public function update(Request $request, $id)
     {
@@ -29,9 +29,8 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->title = $request->title;
         $book->pieces = $request->pieces;
-        $book->save();
-        //még nem létetik 
-        return redirect('/book/list');
+        $book->save();         
+        //return redirect('/book/list');
     }
     public function store(Request $request)
     {
@@ -39,26 +38,25 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->title = $request->title;
         $book->pieces = $request->pieces;
-        $book->save();
-        //még nem létetik 
-        return redirect('/book/list');
+        $book->save();        
+        ///return redirect('/book/list');
     }
 
     //VIEW-OK
     public function newView()
     {
         $users = User::all();
-        return view('book.new', ['users' => $users]);
+        //return view('book.new', ['users' => $users]);
     }
     public function editView($id)
     {
         $users = User::all();
         $book = Book::find($id);
-        return view('book.edit', ['users' => $users, 'book' => $book]);
+        //return view('book.edit', ['users' => $users, 'book' => $book]);
     }
     public function listView()
     {
         $books = Book::all();
-        return view('book.list', ['books' => $books]);
+        //return view('book.list', ['books' => $books]);
     }
 }
