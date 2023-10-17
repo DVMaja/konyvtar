@@ -11,28 +11,35 @@ class LendingController extends Controller
     {
         return Lending::all();
     }
-    public function show($id)
+    public function show ($user_id, $copy_id, $start)
     {
-        return Lending::find($id);
+        $lending = Lending::where('user_id', $user_id)->where('copy_id', $copy_id)->where('start', $start)->get();
+        return $lending[0];
     }
-    public function destroy($id)
+    public function destroy($user_id, $copy_id, $start)
+    {       
+        LendingController::show($user_id, $copy_id, $start)->delete();
+        //Lending::find($id)->delete();         
+    }
+
+    /* public function update(Request $request, $id)
     {
-        Lending::find($id)->delete();         
-    }
-    public function update(Request $request, $id)
-    {
-        $lenging = Lending::find($id);
-        $lenging->user_id = $request->user_id;
-        $lenging->copy_id = $request->copy_id;
-        $lenging->start = $request->start;        
-        $lenging->save();
-    }
+        $lending = LendingController::show($user_id, $copy_id, $start);
+        $lending->user_id = $request->user_id;
+        $lending->copy_id = $request->copy_id;
+        $lending->start = $request->start;        
+        $lending->save();
+    } */
+
     public function store(Request $request)
     {
-        $lenging = new Lending();
-        $lenging->user_id = $request->user_id;
-        $lenging->copy_id = $request->copy_id;
-        $lenging->start = $request->start;
-        $lenging->save();
+        $lending = new Lending();
+        $lending->user_id = $request->user_id;
+        $lending->copy_id = $request->copy_id;
+        $lending->start = $request->start;
+        $lending->save();
     }
+
+    
+
 }
