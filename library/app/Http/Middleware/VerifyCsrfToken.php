@@ -15,7 +15,8 @@ class VerifyCsrfToken extends Middleware
         //a tesztelés idejére mindenképpen kell, de ha élesben megy, akkor ki kell  szedni
         '/api/books/*',
         '/api/books',
-        '/api/lendings/*/*/*'
+        '/api/lendings/*/*/*',
+        '/api/user_password/*'
         
         
     ];

@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('/api/copies', CopyController::class);
     Route::apiResource('/api/books', BookController::class);
     Route::apiResource('/api/users', UserController::class);
+    Route::patch('/api/user_password/{id}', [UserController::class, 'updatePassword']);
     Route::delete('/api/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, 'destroy']);
 
     
