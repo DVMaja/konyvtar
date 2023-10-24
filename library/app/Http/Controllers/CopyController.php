@@ -36,7 +36,20 @@ class CopyController extends Controller
         $copy->book_id = $request->book_id;
         $copy->hardcover = $request->hardcover;
         $copy->status = $request->emstatusail;
-        $copy->publication = $request->publication;        
+        $copy->publication = $request->publication;
         $copy->save();
+    }
+
+    public function copyBookLending()
+    {
+        return Copy::with('book')->with('lending')->get();
+        //több függvényt is használhatunk
+    }
+
+    public function copyLending($id)
+    {
+        $copyes = Copy::with('copy')->where('copy_id', '=', $id)->get();
+        return $copyes;
+        
     }
 }

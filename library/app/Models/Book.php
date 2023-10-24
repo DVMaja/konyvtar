@@ -13,6 +13,15 @@ class Book extends Model
 
     protected $fillable = [
         'author',
-        'title',        
+        'title',
     ];
+    //a példány felé sétálok
+    public function copy() //ami felé mutat
+    //Kapcsolat Pl hasMany
+    //melyik osztály, ott hogy hívják
+    {
+        return $this->hasMany(Copy::class, 'book_id', 'book_id');
+    }
+
+     
 }

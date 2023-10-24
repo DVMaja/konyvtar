@@ -33,13 +33,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['admin'])->group(function () {
+    //ezt csak az admin tudja csinálni
+    Route::apiResource('/users', UserController::class);
+});
 
+//bármilyen bejelentkezett felhasználó hozzáférhet ezekhez
+Route::middleware('auth.basic')->group(function () {
     Route::apiResource('/api/copies', CopyController::class);
     Route::apiResource('/api/books', BookController::class);
-    Route::apiResource('/api/users', UserController::class);
-    Route::patch('/api/user_password/{id}', [UserController::class, 'updatePassword']);
-    Route::delete('/api/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, 'destroy']);
 
-    
+    //Lekérdezések with-tel
+    Route::get('/with/book_copy', [BookController::class, 'bookCopy']);
+    Route::get('/with/lending_user', [LendingController::class, 'lendingUser']);
+    Route::get('/with/lending_user', [LendingController::class, 'userHas']);
+    //copyBookLending
+    Route::get('/with/copy_book_lending', [CopyController::class, 'copyBookLending']);
+    Route::get('/with/lending_user/{start}', [LendingController::class, 'userMany']);
 
-require __DIR__.'/auth.php';
+    Route::get('/with/copy_lending/{id}', [CopyController::class, 'copyLending']);
+});
+
+
+//bárki bejelentkezés nélkl is elérheti ami itt kívűl van
+//Route::apiResource('/api/users', UserController::class);
+Route::patch('/api/user_password/{id}', [UserController::class, 'updatePassword']);
+Route::delete('/api/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, 'destroy']);
+
+
+
+require __DIR__ . '/auth.php';

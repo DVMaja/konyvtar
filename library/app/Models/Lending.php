@@ -26,4 +26,22 @@ class Lending extends Model
 
         return $query;
     }
+
+    public function user() //ami felé mutat    
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
+
+    /* public function userHas() //ami felé mutat    
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    } */
+
+    public function userMany()
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+
+    }
+
+    
 }

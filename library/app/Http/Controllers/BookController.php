@@ -56,4 +56,12 @@ class BookController extends Controller
         $books = Book::all();
         //return view('book.list', ['books' => $books]);
     }
+
+    //Width függvények
+    public function bookCopy(){
+        //a modelben megírt függvényre hivatkozunk
+        return Book::with('copy')->get();       
+        //a copy már meg van írva a modellben
+
+    }
 }

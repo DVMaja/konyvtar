@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LendingController extends Controller
 {
@@ -11,13 +12,13 @@ class LendingController extends Controller
     {
         return Lending::all();
     }
-    public function show ($user_id, $copy_id, $start)
+    public function show($user_id, $copy_id, $start)
     {
         $lending = Lending::where('user_id', $user_id)->where('copy_id', $copy_id)->where('start', $start)->get();
         return $lending[0];
     }
     public function destroy($user_id, $copy_id, $start)
-    {       
+    {
         LendingController::show($user_id, $copy_id, $start)->delete();
         //Lending::find($id)->delete();         
     }
@@ -40,6 +41,27 @@ class LendingController extends Controller
         $lending->save();
     }
 
-    
+    public function lendingUser()
+    {
+        //bejelentkezett felhasználó
+        $user = Auth::user();
+        $lendings = Lending::with('user')->where('user_id', '=', $user->id)->get();
+        return $lendings;
+    } //melyik modellben milyen nevűt akarsz használni    
 
+
+    public function lendingUser2()
+    {
+        //bejelentkezett felhasználó
+        $user = Auth::user();
+        $lendings = Lending::with('user')->where('user_id', '=', $user->id)->get();
+        return $lendings;
+    }
+    
+    public function userMany($start)
+    {        
+        $lendings = Lending::with('user')->where('start', '=', $start)->get();
+        return $lendings;
+    }
+    
 }

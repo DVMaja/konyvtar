@@ -35,7 +35,7 @@ class UserController extends Controller
     public function updatePassword(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            "password" => 'string|min:3|max:50'
+            "password" => array('required', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[^\s]{8,}$/')
         ]);
         if ($validator->fails()) {
             return response()->json(["message" => $validator->errors()->all()], 400);
@@ -45,6 +45,7 @@ class UserController extends Controller
         ]);
         return response()->json(["user" => $user]);
     }
+
 
     public function store(Request $request)
     {
